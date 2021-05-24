@@ -1,0 +1,15 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.coin-name {
+  color: yellowgreen;
+  justify-self: center;
+}
+.back-btn {
+  color: white;
+  justify-self: unset;
+}

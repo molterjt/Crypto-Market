@@ -1,0 +1,112 @@
+.table {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin: 0 10px;
+  color: white;
+}
+.table-headers {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.table-row-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.table-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  border-bottom: 1px solid gray;
+  padding: 10px 0;
+  font-size: medium;
+}
+.name-btn {
+  text-decoration: none;
+  border: none;
+  background-color: none;
+  background: none;
+  color: white;
+  font-size:large;
+  cursor: pointer;
+}
+.row-col {
+  display: flex;
+}
+
+.col-name {
+  width: 18%;
+  text-decoration: underline;
+}
+.col-symbol {
+  width: 8%;
+}
+.col-price {
+  width: 12%;
+}
+.col-hour {
+  width: 8%;
+}
+.col-day {
+  width: 10%;
+}
+.col-week {
+  width: 10%;
+}
+.col-month {
+  width: 10%;
+}
+.col-twoHundred {
+  width: 12%;
+}
+.col-ath {
+  width: 12%;
+}
+
+// {data: Array(100), status: 200, statusText: "", headers: {…}, config: {…}, …}
+// config: {url: "https://api.coingecko.com/api/v3/coins/markets?vs_…rice_change_percentage=1h%2C24h%2C7d%2C30d%2C200d", method: "get", headers: {…}, transformRequest: Array(1), transformResponse: Array(1), …}
+// data: Array(100)
+// 0: {id: "bitcoin", symbol: "btc", name: "Bitcoin", image: "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579", current_price: 59097, …}
+// 1:
+// ath: 3952.52
+// ath_change_percentage: -1.34345
+// ath_date: "2021-05-08T22:14:41.508Z"
+// atl: 0.432979
+// atl_change_percentage: 900504.20025
+// atl_date: "2015-10-20T00:00:00.000Z"
+// circulating_supply: 115796878.9365
+// current_price: 3892.31
+// fully_diluted_valuation: null
+// high_24h: 3952.52
+// id: "ethereum"
+// image: "https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880"
+// last_updated: "2021-05-09T02:12:26.112Z"
+// low_24h: 3519.3
+// market_cap: 451122997712
+// market_cap_change_24h: 41692865037
+// market_cap_change_percentage_24h: 10.18315
+// market_cap_rank: 2
+// max_supply: null
+// name: "Ethereum"
+// price_change_24h: 354.56
+// price_change_percentage_1h_in_currency: 0.6488995726250898
+// price_change_percentage_7d_in_currency: 32.170289226638104
+// price_change_percentage_24h: 10.02209
+// price_change_percentage_24h_in_currency: 10.02209397513161
+// price_change_percentage_30d_in_currency: 87.00831909422143
+// price_change_percentage_200d_in_currency: 957.039569690731
+// roi: {times: 87.12141922389107, currency: "btc", percentage: 8712.141922389106}
+// symbol: "eth"
+// total_supply: null
+// total_volume: 61400902113
