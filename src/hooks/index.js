@@ -13,7 +13,6 @@ export const fetchData = async (path, setFunc) => {
     }
   );
   setFunc(result.data);
-  console.log('res: ', result);
 }
 
 export const fetchChartData = async (id, setFunc) => {
@@ -22,7 +21,6 @@ export const fetchChartData = async (id, setFunc) => {
       headers: { 'accept': 'application/json'},
     },
   );
-  console.log(result.data.prices)
   const processedData = [];
   {Object.values(result.data.prices).forEach((d) => {
     let date = new Date(d[0]).toLocaleDateString();

@@ -63,7 +63,6 @@ export const MyChart = () => {
   );
 
   const newSearch = (days = null) => {
-    console.log(days)
     if(days) {
       setHistoricalSearch(days);
     }
