@@ -1,5 +1,4 @@
 import React from 'react';
-import { COIN_CHART_DATA } from '../../../Constants.js/index.js';
 import { 
   LineChart, 
   Line, 
@@ -9,7 +8,7 @@ import {
   Tooltip, 
   ResponsiveContainer 
 } from 'recharts';
-import {useEventListener} from '../../../hooks/index';
+import {Redirect} from 'react-router-dom';
 import {Loading} from '../../Common/Loading';
 import axios from 'axios';
 import {useLocation, Link } from 'react-router-dom';
@@ -19,17 +18,17 @@ import "./lineChart.scss";
 
 export const MyChart = () => {
   const [crypts, setCrypts] = React.useState([]);
+  const [coinName, setCoinName] = React.useState("")
   const [historicalSearch, setHistoricalSearch] = React.useState('max');
   const [newSearchRange, setNewSearchRange] = React.useState(false);
-  const [sliderMoving, setSliderMoving] = React.useState(false);
-  const [bulletPos, setBulletPos] = React.useState(0)
   const passedParams = useLocation().value;
-  const coin_id = passedParams != undefined ? passedParams.id : 'bitcoin';
-  const coin_name = passedParams != undefined? passedParams.name : 'Bitcoin';
-  const url = `https://api.coingecko.com/api/v3/coins/${coin_id}/market_chart?vs_currency=usd&days=${historicalSearch}&interval=daily`
 
   React.useEffect(() => {
     async function fetchCoinChart() {
+      const coin_id = passedParams.id;
+      const coin_name = passedParams.name;
+      const url = `https://api.coingecko.com/api/v3/coins/${coin_id}/market_chart?vs_currency=usd&days=${historicalSearch}&interval=daily`
+      if (coin_name) setCoinName(coin_name);
       const result = await axios.get(
         url, {
           headers: { 'accept': 'application/json'},
@@ -48,7 +47,7 @@ export const MyChart = () => {
     }
     fetchCoinChart();
     setNewSearchRange(false);
-  }, [newSearchRange, setNewSearchRange]);
+  }, [newSearchRange, setNewSearchRange, passedParams]);
 
   const renderLineChart = (data) => (
     <ResponsiveContainer width={'100%'} height={600}>
@@ -72,26 +71,30 @@ export const MyChart = () => {
     setCrypts([]);
   }
 
-  return (
-    crypts.length < 1 
-      ? (<Loading/>)
-      : (
-      <div className="container">
-        <Link className="back-btn" to="/">{"Return to Table"}</Link>
-        <h2 className="coin-name">{coin_name}</h2>
-        <HistorySearch 
-          setHistoryRange={newSearch}
-          historicalSearch={historicalSearch}  
-        />
-        <RangeSlider 
-          crypts={crypts}
-          setHistoricalSearch={setHistoricalSearch}
-          historicalSearch={historicalSearch}
-          newSearch={newSearch}
-        />
-        { renderLineChart(crypts) }
-      </div>
-    )
-  );
+  if ( !passedParams || passedParams == undefined) {
+    return <Redirect to='/'/>
+  } else {
+    return (
+      crypts.length < 1 
+        ? (<Loading/>)
+        : (
+        <div className="container">
+          <Link className="back-btn" to="/">{"Return to Table"}</Link>
+          <h2 className="coin-name">{coinName}</h2>
+          <HistorySearch 
+            setHistoryRange={newSearch}
+            historicalSearch={historicalSearch}  
+          />
+          <RangeSlider 
+            crypts={crypts}
+            setHistoricalSearch={setHistoricalSearch}
+            historicalSearch={historicalSearch}
+            newSearch={newSearch}
+          />
+          { renderLineChart(crypts) }
+        </div>
+      )
+    );
+  }
 }
 
