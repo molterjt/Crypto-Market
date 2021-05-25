@@ -1,16 +1,15 @@
 import React from 'react';
 import '../CryptoTableStyle.scss';
-import {Link} from 'react-router-dom';
 
-export const NameCol = ({id, name, colClassName}) => 
+export const NameCol = ({id, name, colClassName, selectCurrency}) => 
   <div className={`row-col `+ colClassName }>
-    <Link
+    <button
       className="name-btn" 
-      to={{
-        pathname: "/charts",
-        value: { id: id, name: name }
+      onClick={(e) => {
+        e.preventDefault();
+        selectCurrency({id: id, name: name})
       }}
     >
       {name}
-    </Link>
+    </button>
   </div>

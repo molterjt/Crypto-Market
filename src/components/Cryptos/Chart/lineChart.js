@@ -8,25 +8,22 @@ import {
   Tooltip, 
   ResponsiveContainer 
 } from 'recharts';
-import {Redirect} from 'react-router-dom';
 import {Loading} from '../../Common/Loading';
 import axios from 'axios';
-import {useLocation, Link } from 'react-router-dom';
 import {HistorySearch} from './historySearch';
 import {RangeSlider} from '../../Common/RangeSlider';
 import "./lineChart.scss";
 
-export const MyChart = () => {
+export const MyChart = ({selectedCurrency, selectCurrency}) => {
   const [crypts, setCrypts] = React.useState([]);
   const [coinName, setCoinName] = React.useState("")
   const [historicalSearch, setHistoricalSearch] = React.useState('max');
   const [newSearchRange, setNewSearchRange] = React.useState(false);
-  const passedParams = useLocation().value;
 
   React.useEffect(() => {
     async function fetchCoinChart() {
-      const coin_id = passedParams.id;
-      const coin_name = passedParams.name;
+      const coin_id = selectedCurrency.id;
+      const coin_name = selectedCurrency.name;
       const url = `https://api.coingecko.com/api/v3/coins/${coin_id}/market_chart?vs_currency=usd&days=${historicalSearch}&interval=daily`
       if (coin_name) setCoinName(coin_name);
       const result = await axios.get(
@@ -47,7 +44,7 @@ export const MyChart = () => {
     }
     fetchCoinChart();
     setNewSearchRange(false);
-  }, [newSearchRange, setNewSearchRange, passedParams]);
+  }, [newSearchRange, setNewSearchRange]);
 
   const renderLineChart = (data) => (
     <ResponsiveContainer width={'100%'} height={600}>
@@ -70,30 +67,32 @@ export const MyChart = () => {
     setCrypts([]);
   }
 
-  if ( !passedParams || passedParams == undefined) {
-    return <Redirect to='/'/>
-  } else {
-    return (
-      crypts.length < 1 
-        ? (<Loading/>)
-        : (
-        <div className="container">
-          <Link className="back-btn" to="/">{"Return to Table"}</Link>
-          <h2 className="coin-name">{coinName}</h2>
-          <HistorySearch 
-            setHistoryRange={newSearch}
-            historicalSearch={historicalSearch}  
-          />
-          <RangeSlider 
-            crypts={crypts}
-            setHistoricalSearch={setHistoricalSearch}
-            historicalSearch={historicalSearch}
-            newSearch={newSearch}
-          />
-          { renderLineChart(crypts) }
-        </div>
-      )
-    );
-  }
+  
+  return (
+    crypts.length < 1 
+      ? (<Loading/>)
+      : (
+      <div className="container">
+        <a 
+          className="back-btn" 
+          onClick={() => selectCurrency(null)}>
+          Return to Table
+        </a>
+        <h2 className="coin-name">{coinName}</h2>
+        <HistorySearch 
+          setHistoryRange={newSearch}
+          historicalSearch={historicalSearch}  
+        />
+        <RangeSlider 
+          crypts={crypts}
+          setHistoricalSearch={setHistoricalSearch}
+          historicalSearch={historicalSearch}
+          newSearch={newSearch}
+        />
+        { renderLineChart(crypts) }
+      </div>
+    )
+  );
+  
 }
 

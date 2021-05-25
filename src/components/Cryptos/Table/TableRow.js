@@ -2,8 +2,7 @@ import React from 'react';
 import {PriceCol, PriceChangeCol, AllTimeHightCol, NameCol} from './Column';
 import './CryptoTableStyle.scss';
 
-
-export const CryptoTableRow = ({data}) => {
+export const CryptoTableRow = ({data, selectCurrency}) => {
   const {
     id,
     name, 
@@ -18,7 +17,7 @@ export const CryptoTableRow = ({data}) => {
   } = data;
   return(
     <div className="table-row" key={id}>  
-      <NameCol colClassName={'col-name'} name={name} id={id}/>    
+      <NameCol colClassName={'col-name'} name={name} id={id} selectCurrency={selectCurrency}/>    
       <div className="row-col col-symbol">{symbol}</div>
       <PriceCol colClassName={'col-price'} price={Number(price).toFixed(2)} priceChange={Number(hr).toFixed(2)} ath={ath} />
       <PriceChangeCol colClassName={'col-hour'} priceChange={Number(hr).toFixed(2)}/>

@@ -3,7 +3,7 @@ import {CryptoTableRow} from './TableRow';
 import {TableHeaders} from './TableHeaders';
 import './CryptoTableStyle.scss';
 
-export const CryptoTable = ({crypts}) => {
+export const CryptoTable = ({crypts, selectCurrency}) => {
   return (
     <div className="table">
       <TableHeaders/>
@@ -12,6 +12,7 @@ export const CryptoTable = ({crypts}) => {
           <CryptoTableRow
             key={i}
             data={opt}
+            selectCurrency={selectCurrency}
           />
         )}
       </div>

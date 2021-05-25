@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import AppRouter from './appRouter';
+import {App} from './App'
 
 ReactDOM.render(
-    <AppRouter/>
+    <App/>
  ,document.getElementById('root')
 );
 module.hot.accept();
